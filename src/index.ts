@@ -18,6 +18,14 @@ import {
   GeocodingParamsSchema,
 } from './types.js';
 
+process.on('uncaughtException', (err, origin) => {
+  // Use console.error to ensure this is written to stderr
+  console.error(`\n!!!!!! UNCAUGHT EXCEPTION !!!!!!\n`);
+  console.error(`Caught exception: ${err}`);
+  console.error(`Exception origin: ${origin}`);
+  console.error(err.stack); // This prints the full, detailed stack trace
+  process.exit(1); // Ensure the process exits after a crash
+}); 
 class OpenMeteoMCPServer {
   private server: Server;
   private client: OpenMeteoClient;
